@@ -1,13 +1,7 @@
-Dart Grid
+Dart Grid Example
 ===============
 
 ## Dart Grid type data implementation
-
-This package allows you to work with data tables like Excel, while saving only real data (empty data is only generated).
-
-## Getting Started
-
-To use this package, add `dart_grid` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
 
 ```yaml
 dependencies:

@@ -1,5 +1,4 @@
-
-library grid;
+library dart_grid;
 
 import 'src/cell_data.dart';
 import 'src/grid_data.dart';
