@@ -15,7 +15,7 @@ dependencies:
 ## Using
 
 ```dart
-import 'package:grid/grid.dart';
+import 'package:dart_grid/dart_grid.dart';
 ```
 
 ## Example
