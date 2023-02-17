@@ -14,14 +14,28 @@ class RowData<T, C extends AbstractCell<T>> implements AbstractRow<T, C> {
 
   /// Return lenght of cells
   @override
-  int get lenght {
+  int get length {
     final maxIndex = _cells.map((e) => e.index).maxOrNull;
     return maxIndex == null ? 0 : maxIndex + 1;
   }
 
+  @override
+  bool get isEmpty => length == 0;
+
+  @override
+  bool get isNotEmpty => length > 0;
+
+  @override
+  bool any(bool Function(C element) test) {
+    for (C element in _cells) {
+      if (test(element)) return true;
+    }
+    return false;
+  }
+
   /// Return list of datas
   @override
-  List<T?> get datas => cells.map((e) => e?.data).toList();
+  List<T?> get datas => cells.map((e) => e.data).toList();
 
   /// Return data by index
   @override
@@ -34,23 +48,26 @@ class RowData<T, C extends AbstractCell<T>> implements AbstractRow<T, C> {
   C? cell(int index) {
     if (_cells.isEmpty) return null;
     assert(index >= 0, 'Index must be greater than or equal to 0');
-    assert(index < lenght, 'IndexOf must be less than $lenght');
+    assert(index < length, 'IndexOf must be less than $length');
     return _cells.firstWhereOrNull((element) => element.index == index);
   }
 
   /// Return list of cells
   @override
-  List<C?> get cells {
-    final list = List<C?>.empty(growable: true);
-    for (int i = 0; i < lenght; i++) {
-      list.add(cell(i));
+  List<C> get cells {
+    final list = List<C>.empty(growable: true);
+    for (int i = 0; i < length; i++) {
+      final c = cell(i);
+      if (c != null) {
+        list.add(c);
+      }
     }
     return list;
   }
 
   /// Add a data
   @override
-  void add(T data) => _cells.add(CellData(index: lenght, data: data) as C);
+  void add(T data) => _cells.add(CellData(index: length, data: data) as C);
 
   /// Add data to position
   @override
@@ -91,8 +108,8 @@ class RowData<T, C extends AbstractCell<T>> implements AbstractRow<T, C> {
   }
 
   @override
-  String toString() {
-    return _cells.toString();
+  void clear() {
+    _cells.clear();
   }
 
   @override
@@ -104,5 +121,10 @@ class RowData<T, C extends AbstractCell<T>> implements AbstractRow<T, C> {
     } else {
       return 0;
     }
+  }
+
+  @override
+  String toString() {
+    return datas.toString();
   }
 }

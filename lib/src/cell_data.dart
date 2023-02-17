@@ -12,11 +12,6 @@ class CellData<T> implements AbstractCell<T> {
   const CellData({required this.index, required T data}) : _data = data;
 
   @override
-  String toString() {
-    return _data?.toString() ?? 'null';
-  }
-
-  @override
   int compareTo(AbstractCell<T> other) {
     if (index < other.index) {
       return -1;
@@ -25,5 +20,10 @@ class CellData<T> implements AbstractCell<T> {
     } else {
       return 0;
     }
+  }
+
+  @override
+  String toString() {
+    return _data?.toString() ?? 'null';
   }
 }

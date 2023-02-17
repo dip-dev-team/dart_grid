@@ -1,3 +1,7 @@
+## 1.0.0+2
+
+- Add methods: isNotEmpty, isEmpty, clear()
+
 ## 1.0.0+1
 
 - Fix README.

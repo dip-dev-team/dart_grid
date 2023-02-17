@@ -25,15 +25,17 @@ import 'package:dart_grid/dart_grid.dart';
 ```dart
 void main() {
   var grid = Grid<int>();
-  grid.putAt(0).putAt(0, 0);
-  grid.putAt(1).putAt(1, 1);
-  grid.putAt(2).putAt(2, 2);
-  grid.putAt(3).putAt(3, 3);
+
+  grid.add().putAt(0, 1);
+  grid.add(data: CellData(index: 1, data: 2));
+  grid.add(data: CellData(index: 2, data: 3));
+  grid.putAt(3, data: [CellData(index: 3, data: 4)]);
+  grid.add().putAt(4, 5);
 
   grid.removeAt(2, offset: true);
 
-  for (var i = 0; i < grid.lenght; i++) {
-    print('Row ${grid.rows[i].index}: ${grid.datas[i]}}');
+  for (var i = 0; i < grid.lengthRows; i++) {
+    print('Row ${grid.rows[i].index}: ${grid.datas[i]}');
   }
 }
 ```
@@ -41,7 +43,8 @@ void main() {
 #### Result
 
 ```text
-Row 0: [0, null, null, null]}
-Row 1: [null, 1, null, null]}
-Row 2: [null, null, null, 3]}
+Row index 0: [1, null, null, null, null]
+Row index 1: [null, 2, null, null, null]
+Row index 2: [null, null, null, 4, null]
+Row index 3: [null, null, null, null, 5]
 ```
