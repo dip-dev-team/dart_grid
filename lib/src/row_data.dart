@@ -32,6 +32,7 @@ class RowData<T, C extends AbstractCell<T>> implements AbstractRow<T, C> {
   /// Return cell by index
   @override
   C? cell(int index) {
+    if (_cells.isEmpty) return null;
     assert(index >= 0, 'Index must be greater than or equal to 0');
     assert(index < lenght, 'IndexOf must be less than $lenght');
     return _cells.firstWhereOrNull((element) => element.index == index);
@@ -76,8 +77,22 @@ class RowData<T, C extends AbstractCell<T>> implements AbstractRow<T, C> {
   @override
   void removeAt(int index, {bool offset = false}) {
     assert(index >= 0, 'Index must be greater than or equal to 0');
-    _cells.removeWhere((element) => element.index == index);
+
+    final i = _cells.indexWhere((element) => element.index == index);
+    if (offset) {
+      for (int a = i + 1; a < _cells.length; a++) {
+        putAt(_cells[a].index - 1, _cells[a].data);
+      }
+    }
+    if (i >= 0) {
+      _cells.removeAt(i);
+    }
     return _cells.sort();
+  }
+
+  @override
+  String toString() {
+    return _cells.toString();
   }
 
   @override

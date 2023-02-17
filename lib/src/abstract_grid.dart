@@ -8,8 +8,8 @@ abstract class AbstractGrid<T, C extends AbstractCell<T>,
   R row(int index);
   List<R> get rows;
 
-  R add();
-  R putAt(int index, {bool offset = false});
+  R add({R? data});
+  R putAt(int index, {R? data, bool offset = false});
   void removeAt(int index, {bool offset = false});
 }
 

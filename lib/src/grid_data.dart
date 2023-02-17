@@ -56,24 +56,24 @@ class GridData<T, C extends AbstractCell<T>, R extends AbstractRow<T, C>>
 
   /// Add a row
   @override
-  R add() {
-    _rows.add(RowData<T, C>(index: lenght) as R);
+  R add({R? data}) {
+    _rows.add(data ?? RowData<T, C>(index: lenght) as R);
     return _rows.last;
   }
 
   /// Add row to position
   @override
-  R putAt(int index, {bool offset = false}) {
+  R putAt(int index, {R? data, bool offset = false}) {
     assert(index >= 0, 'Index must be greater than or equal to 0');
     if (_rows.any((element) => element.index == index)) {
       if (offset) {
         final i = _rows.indexWhere((element) => element.index == index);
         for (int a = i; a < _rows.length; a++) {
-          putAt(_rows[a].index);
+          putAt(_rows[a].index, data: data);
         }
       } else {
         removeAt(index);
-        return putAt(index);
+        return putAt(index, data: data);
       }
     } else {
       add();
@@ -86,7 +86,28 @@ class GridData<T, C extends AbstractCell<T>, R extends AbstractRow<T, C>>
   @override
   void removeAt(int index, {bool offset = false}) {
     assert(index >= 0, 'Index must be greater than or equal to 0');
-    _rows.removeWhere((element) => element.index == index);
+    final i = _rows.indexWhere((element) => element.index == index);
+    if (offset) {
+      final rows = List<R>.empty(growable: true);
+
+      for (int a = 0; a < _rows.length; a++) {
+        if (i <= 0 || _rows[a].index != _rows[i].index) {
+          if (i >= 0 && _rows[a].index < _rows[i].index) {
+            rows.add(_rows[a]);
+          } else {
+            final cells = List<C>.from(
+                _rows[a].cells.where((element) => element != null));
+            rows.add(
+                RowData<T, C>(index: _rows[a].index - 1, cells: cells) as R);
+          }
+        }
+      }
+
+      _rows.clear();
+      _rows.addAll(rows);
+    } else if (i >= 0) {
+      _rows.removeAt(i);
+    }
     return _rows.sort();
   }
 
