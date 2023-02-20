@@ -32,9 +32,16 @@ void main() {
       expect(grid.any((element) => element.index == 5), false);
     });
 
-    test('PutAt Data Test with offset', () {
-      grid.putAt(0, data: [CellData(index: 5, data: 6)], offset: true);
-      expect(grid.row(0).cell(5)?.data, 6);
+    test('PutAt Data Row Test with offset', () {
+      grid.putAt(2, data: [CellData(index: 5, data: 6)], offset: true);
+      expect(grid.row(2).cell(5)?.data, 6);
+      expect(grid.row(3).cell(2)?.data, 3);
+    });
+
+    test('PutAt Data Cell Test with offset', () {
+      grid.row(2).putAt(2, 4, offset: true);
+      expect(grid.row(2).cell(2)?.data, 4);
+      expect(grid.row(2).cell(3)?.data, 3);
     });
   });
 }

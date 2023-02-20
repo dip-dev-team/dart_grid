@@ -76,9 +76,11 @@ class RowData<T, C extends AbstractCell<T>> implements AbstractRow<T, C> {
     if (_cells.any((element) => element.index == index)) {
       if (offset) {
         final i = _cells.indexWhere((element) => element.index == index);
-        for (int a = _cells.length - 1; a > i; a--) {
+        for (int a = _cells.length - 1; a >= i; a--) {
+          removeAt(_cells[a].index + 1);
           putAt(_cells[a].index + 1, _cells[a].data);
         }
+        removeAt(index);
         _cells.add(CellData(index: index, data: data) as C);
       } else {
         removeAt(index);
