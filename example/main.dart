@@ -3,11 +3,11 @@ import 'package:dart_grid/dart_grid.dart';
 void main() {
   var grid = Grid<int>();
 
-  grid.add().putAt(0, 1);
-  grid.add(data: CellData(index: 1, data: 2));
-  grid.add(data: CellData(index: 2, data: 3));
-  grid.putAt(3, data: [CellData(index: 3, data: 4)]);
-  grid.add().putAt(4, 5);
+  grid.add(CellData(index: 0, data: 1));
+  grid.add(CellData(index: 1, data: 2));
+  grid.add(CellData(index: 2, data: 3));
+  grid.putAt(3, [CellData(index: 3, data: 4)]);
+  grid.add(CellData(index: 4, data: 5));
 
   grid.removeAt(2, offset: true);
 

@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Stable version
+
 ## 1.0.0+2
 
 - Add methods: isNotEmpty, isEmpty, clear()

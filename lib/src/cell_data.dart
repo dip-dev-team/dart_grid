@@ -24,6 +24,16 @@ class CellData<T> implements AbstractCell<T> {
 
   @override
   String toString() {
-    return _data?.toString() ?? 'null';
+    return _data.toString();
   }
+
+  @override
+  bool operator ==(Object other) =>
+      other is CellData<T> &&
+      other.index == index &&
+      other is T &&
+      other.data == data;
+
+  @override
+  int get hashCode => [index, data.hashCode].hashCode;
 }

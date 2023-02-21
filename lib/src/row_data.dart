@@ -33,6 +33,22 @@ class RowData<T, C extends AbstractCell<T>> implements AbstractRow<T, C> {
     return false;
   }
 
+  /// Return [TRUE] if data contains
+  @override
+  bool contains(T data) {
+    return any((element) => element.data == data);
+  }
+
+  /// Return [TRUE] if data is not [NULL]
+  @override
+  bool hasData(int index) {
+    try {
+      return cell(index) != null;
+    } catch (_) {
+      return false;
+    }
+  }
+
   /// Return list of datas
   @override
   List<T?> get datas => cells.map((e) => e.data).toList();
@@ -65,9 +81,36 @@ class RowData<T, C extends AbstractCell<T>> implements AbstractRow<T, C> {
     return list;
   }
 
+  @override
+  void offset(int index) {
+    int i = _cells.indexWhere((element) => element.index == index);
+    if (i < 0) {
+      i = 0;
+    }
+    for (int a = _cells.length - 1; a >= i; a--) {
+      removeAt(_cells[a].index + 1);
+      putAt(_cells[a].index + 1, _cells[a].data);
+    }
+    _cells.removeAt(i);
+  }
+
   /// Add a data
   @override
   void add(T data) => _cells.add(CellData(index: length, data: data) as C);
+
+  /// Add all cells
+  @override
+  void addAll(AbstractRow<T, C> row) {
+    for (var cell in _cells) {
+      for (var element in row.cells) {
+        if (cell.index == element.index) {
+          removeAt(cell.index);
+        }
+      }
+    }
+    _cells.addAll(row.cells);
+    return _cells.sort();
+  }
 
   /// Add data to position
   @override
@@ -75,11 +118,7 @@ class RowData<T, C extends AbstractCell<T>> implements AbstractRow<T, C> {
     assert(index >= 0, 'Index must be greater than or equal to 0');
     if (_cells.any((element) => element.index == index)) {
       if (offset) {
-        final i = _cells.indexWhere((element) => element.index == index);
-        for (int a = _cells.length - 1; a >= i; a--) {
-          removeAt(_cells[a].index + 1);
-          putAt(_cells[a].index + 1, _cells[a].data);
-        }
+        this.offset(index);
         removeAt(index);
         _cells.add(CellData(index: index, data: data) as C);
       } else {
@@ -98,12 +137,12 @@ class RowData<T, C extends AbstractCell<T>> implements AbstractRow<T, C> {
     assert(index >= 0, 'Index must be greater than or equal to 0');
 
     final i = _cells.indexWhere((element) => element.index == index);
-    if (offset) {
-      for (int a = i + 1; a < _cells.length; a++) {
-        putAt(_cells[a].index - 1, _cells[a].data);
-      }
-    }
     if (i >= 0) {
+      if (offset) {
+        for (int a = i + 1; a < _cells.length; a++) {
+          putAt(_cells[a].index - 1, _cells[a].data);
+        }
+      }
       _cells.removeAt(i);
     }
     return _cells.sort();
@@ -129,4 +168,13 @@ class RowData<T, C extends AbstractCell<T>> implements AbstractRow<T, C> {
   String toString() {
     return datas.toString();
   }
+
+  @override
+  bool operator ==(Object other) =>
+      other is RowData<T, C> &&
+      other.index == index &&
+      other.cells.equals(_cells);
+
+  @override
+  int get hashCode => [index, _cells.hashCode].hashCode;
 }

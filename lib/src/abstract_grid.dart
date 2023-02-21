@@ -9,14 +9,21 @@ abstract class AbstractGrid<T, C extends AbstractCell<T>,
 
   bool any(bool Function(R element) test);
 
+  bool contains(T data);
+  bool hasData(int rowIndex, int cellIndex);
+
   List<T?> data(int index);
   List<List<T?>> get datas;
 
-  R row(int index);
+  R? row(int index);
   List<R> get rows;
 
-  R add({C? data});
-  R putAt(int index, {List<C>? data, bool offset = false});
+  void offset(int index);
+
+  R add(C data);
+  void addAll(AbstractGrid<T, C, R> grid);
+  R putAt(int index, List<C> data,
+      {bool offset = false, bool cellOffset = false});
   void removeAt(int index, {bool offset = false});
 
   void clear();
@@ -34,13 +41,19 @@ abstract class AbstractRow<T, C extends AbstractCell<T>>
 
   bool any(bool Function(C element) test);
 
+  bool contains(T data);
+  bool hasData(int index);
+
   T? data(int index);
   List<T?> get datas;
 
   C? cell(int index);
   List<C> get cells;
 
+  void offset(int index);
+
   void add(T data);
+  void addAll(AbstractRow<T, C> row);
   void putAt(int index, T data, {bool offset = false});
   void removeAt(int index, {bool offset = false});
 
