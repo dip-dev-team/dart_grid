@@ -63,8 +63,8 @@ class RowData<T, C extends AbstractCell<T>> implements AbstractRow<T, C> {
   @override
   C? cell(int index) {
     if (_cells.isEmpty) return null;
-    assert(index >= 0, 'Index must be greater than or equal to 0');
-    assert(index < length, 'IndexOf must be less than $length');
+    if (index < 0) return null;
+    if (index >= length) return null;
     return _cells.firstWhereOrNull((element) => element.index == index);
   }
 
@@ -135,7 +135,6 @@ class RowData<T, C extends AbstractCell<T>> implements AbstractRow<T, C> {
   @override
   void removeAt(int index, {bool offset = false}) {
     assert(index >= 0, 'Index must be greater than or equal to 0');
-
     final i = _cells.indexWhere((element) => element.index == index);
     if (i >= 0) {
       if (offset) {

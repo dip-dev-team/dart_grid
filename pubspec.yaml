@@ -1,6 +1,6 @@
 name: dart_grid
 description: Dart Grid type data implementation. This package allows you to work with data tables like Excel, while saving only real data (empty data is only generated).
-version: 1.0.1
+version: 1.0.2
 repository: https://gitlab.com/dipdev.studio/open-source/dart-grid
 
 environment:

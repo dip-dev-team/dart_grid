@@ -59,8 +59,6 @@ class GridData<T, C extends AbstractCell<T>, R extends AbstractRow<T, C>>
       list.addAll(List<T?>.generate(cell.index - list.length, (index) => null));
       list.add(cell.data);
     }
-
-    //.from(row(index).datas, growable: true);
     list.addAll(List<T?>.generate(lengthCells - list.length, (index) => null));
     return list;
   }
@@ -78,23 +76,13 @@ class GridData<T, C extends AbstractCell<T>, R extends AbstractRow<T, C>>
   /// Return row by index
   @override
   R? row(int index) {
-    assert(index >= 0, 'Index must be greater than or equal to 0');
-    //assert(lengthRows > index, 'IndexOf must be less than $lengthRows');
-    return _rows.firstWhereOrNull((element) =>
-            element.index ==
-            index) /*  ??
-        RowData<T, C>(index: index) as R */
-        ;
+    if (index < 0) return null;
+    return _rows.firstWhereOrNull((element) => element.index == index);
   }
 
   /// Return list of rows
   @override
   List<R> get rows {
-    /* final list = List<R>.empty(growable: true);
-    for (int i = 0; i < lengthRows; i++) {
-      list.add(row(i));
-    }
-    return list; */
     return List.from(_rows);
   }
 
