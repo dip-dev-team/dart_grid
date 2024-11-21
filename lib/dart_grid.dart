@@ -1,4 +1,4 @@
-library dart_grid;
+library;
 
 import 'src/cell_data.dart';
 import 'src/grid_data.dart';
