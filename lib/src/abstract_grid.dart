@@ -31,7 +31,7 @@ abstract class AbstractGrid<T, C extends AbstractCell<T>,
 
 /// Abstract realization of Row
 abstract class AbstractRow<T, C extends AbstractCell<T>>
-    extends Comparable<AbstractRow<T, C>> {
+    implements Comparable<AbstractRow<T, C>> {
   final int index;
 
   int get length;
@@ -63,7 +63,7 @@ abstract class AbstractRow<T, C extends AbstractCell<T>>
 }
 
 /// Abstract realization of Cell
-abstract class AbstractCell<T> extends Comparable<AbstractCell<T>> {
+abstract class AbstractCell<T> implements Comparable<AbstractCell<T>> {
   final int index;
   T get data;
 
