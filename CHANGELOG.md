@@ -1,3 +1,8 @@
+## 1.0.4
+
+- Upgrade dependencies
+- Fix equals
+
 ## 1.0.3
 
 - Upgrade dependencies
