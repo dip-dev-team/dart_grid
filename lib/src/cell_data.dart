@@ -29,9 +29,9 @@ class CellData<T> implements AbstractCell<T> {
 
   @override
   bool operator ==(Object other) =>
-      other is CellData<T> &&
+      other is CellData &&
       other.index == index &&
-      other is T &&
+      other.data is T &&
       other.data == data;
 
   @override
