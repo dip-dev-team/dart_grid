@@ -1,18 +1,18 @@
 name: dart_grid
 description: Dart Grid type data implementation. This package allows you to work with data tables like Excel, while saving only real data (empty data is only generated).
-version: 1.0.4
+version: 1.0.5
 homepage: https://dip.dev
 issue_tracker: https://github.com/dip-dev-team/dart_grid/issues
 repository: https://github.com/dip-dev-team/dart_grid
 
 environment:
-  sdk: ">=3.5.0 <4.0.0"
+  sdk: ">=3.6.0 <4.0.0"
 
 dependencies:
-  collection: ^1.19.1
+  collection: ^1.19.0
 
 dev_dependencies:
-  lints: ^5.0.0
+  lints: ^5.1.0
   test: ^1.25.12
 
 topics:
